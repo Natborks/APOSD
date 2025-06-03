@@ -16,3 +16,6 @@ Each project targets one or more key design ideas, and includes a short design r
   A simple simulation of an elevator system where users can request pickups and track elevator status. Explores deep modules, pass-through method tradeoffs, and avoiding temporal decomposition.
 
 More systems and refinements will be added over time as part of this ongoing design practice.
+
+**Version 2: **
+Redesign to improve robustness and model more realistic use cases coming soon  
