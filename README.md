@@ -17,5 +17,5 @@ Each project targets one or more key design ideas, and includes a short design r
 
 More systems and refinements will be added over time as part of this ongoing design practice.
 
-**Version 2: **
+**Version 2:**
 Redesign to improve robustness and model more realistic use cases coming soon  
