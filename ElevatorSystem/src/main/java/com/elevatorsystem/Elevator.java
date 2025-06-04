@@ -1,45 +1,43 @@
 package com.elevatorsystem;
 
-import java.util.LinkedList;
+import java.util.ArrayDeque;
 import java.util.Queue;
 
 public class Elevator {
     private final int id;
 
-    private final Queue<Integer> requests;
+    private final Queue<Floor> requests;
 
-    private final ElevatorStatus elevatorStatus;
+    private boolean isIdle;
 
-    public Elevator() {
-        //potential ID collision
-        this.id = (int) (Math.random() * 10000);
-        this.requests = new LinkedList<>();
-        this.elevatorStatus = new ElevatorStatus(0, Direction.IDLE);
+    private Floor currentFloor;
+
+    private ElevatorDirection direction;
+
+    public Elevator(int id) {
+        this.id = id;
+        this.requests = new ArrayDeque<>();
+        this.currentFloor = Floor.create(0);
+        this.isIdle = true;
+        this.direction = ElevatorDirection.MOVING_UP;
     }
 
-    public void addRequest(int floor) {
+    public void addRequest(Floor floor) {
         requests.add(floor);
     }
 
     public void step() {
-        //steps:
-        // dequeue for next request
-        //resolve next to determine direction of request
-        //service request
+
         if (requests.isEmpty()) {
-            this.elevatorStatus.setDirection(Direction.IDLE);
+            this.isIdle = true;
             return;
         }
 
-        Integer nextFloor = requests.poll();
-        Direction direction = nextFloor < this.elevatorStatus.getCurrentFloor() ? Direction.DOWN : Direction.UP;
-        this.elevatorStatus.setDirection(direction);
-        this.elevatorStatus.setCurrentFloor(nextFloor);
-
-    }
-
-    public ElevatorStatus getStatus() {
-        return this.elevatorStatus;
+//        this.isIdle = false;
+//        Floor nextFloor = requests.poll();
+//        this.direction = nextFloor.compareTo(this.currentFloor) < 0
+//                ? ElevatorDirection.MOVING_DOWN : ElevatorDirection.MOVING_UP;
+//        this.currentFloor = nextFloor;
     }
 
     public int getId() {
