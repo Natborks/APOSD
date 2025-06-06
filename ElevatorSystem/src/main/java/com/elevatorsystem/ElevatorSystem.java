@@ -1,6 +1,8 @@
 package com.elevatorsystem;
 
 import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 public class ElevatorSystem {
 
@@ -8,24 +10,59 @@ public class ElevatorSystem {
 
     private final List<Elevator> elevators;
 
-    public ElevatorSystem(int numElevators, ElevatorAssignmentStrategy strategy) {
+    private final BuildingConfig buildingConfig;
+
+    private final BlockingQueue<PickUpRequest> requests;
+
+
+    public ElevatorSystem(int numElevators,
+                          ElevatorAssignmentStrategy strategy,
+                          BuildingConfig buildingConfig
+    ) {
         this.assignmentStrategy = strategy;
+        this.buildingConfig = buildingConfig;
+        this.requests = new ArrayBlockingQueue<>(100);
 
         this.elevators = new ArrayList<>(numElevators);
         for (int i = 0; i < numElevators; i++) {
-            Elevator elevator = new Elevator(i);
-            this.elevators.add(elevator);        }
+            Elevator elevator = new WingElevator(i);
+            this.elevators.add(elevator);
+        }
     }
 
-    public void requestPickup(Floor pickUpFloor, Floor destinationFloor) {
-        Elevator elevator = assignmentStrategy.assignElevator(this.elevators, pickUpFloor);
-        elevator.addRequest(destinationFloor);
+
+    public void requestPickup(PickUpRequest pickUpRequest) throws InterruptedException {
+        if (!buildingConfig.getValidLevels().contains(pickUpRequest.pickUpFloor().number())) {
+            return;
+        }
+
+        this.requests.put(pickUpRequest);
     }
 
-    public void getElevatorStatus() {
+    public void run () {
+        while (true) {
+            serviceRequests();
+        }
+    }
 
-        for (Elevator elevator : this.elevators) {
-            System.out.println("Elevator " + elevator.getId());
+    private void serviceRequests() {
+        while (!requests.isEmpty()) {
+            try {
+                PickUpRequest pickUpRequest = this.requests.take();
+
+                Elevator elevator = assignmentStrategy.assignElevator(this.elevators, pickUpRequest);
+
+                elevator.service(pickUpRequest.pickUpFloor());
+
+                Scanner scanner = new Scanner(System.in);
+                System.out.print("Enter Destination floor: ");
+                String input = scanner.nextLine();
+
+                elevator.service(Floor.create(Integer.parseInt(input)));
+
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }
     }
 }
