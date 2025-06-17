@@ -11,12 +11,13 @@ public class WingElevator implements Elevator{
     }
     @Override
     public void service(Floor floor) {
-        System.out.println("servicing pickup request at: " + floor.number());
+        System.out.println("Elevator " + this.id +  " is servicing pickup request at: "
+                + floor.number());
     }
 
     @Override
-    public int getCurrentFloor() {
-        return this.currentFloor.number();
+    public Floor getCurrentFloor() {
+        return this.currentFloor;
     }
 
 

@@ -1,26 +1,19 @@
 package com.elevatorsystem;
 
-import java.util.HashSet;
-import java.util.Set;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Range;
 
 public class BuildingConfig {
 
-    private final Set<Integer> VALID_LEVELS;
+    private final Range<Integer> validLevels;
 
-    public BuildingConfig(Set<Integer> invalidLevels, int highest_floor, int lowest_floor) {
+    public BuildingConfig(ImmutableSet<Integer> invalidLevels, int highestFloor, int lowestFloor) {
 
-        final Set<Integer> validLevels = new HashSet<>();
-
-        for (int i = lowest_floor; i <= highest_floor; i++) {
-            if (invalidLevels.contains(i)) continue;
-
-            validLevels.add(i);
-        }
-
-        this.VALID_LEVELS = validLevels;
+        this.validLevels =  Range.closed(lowestFloor, highestFloor)
+                .canonical(FloorDomain.create(invalidLevels));
     }
 
-    public Set<Integer> getValidLevels() {
-        return VALID_LEVELS;
+    public Range<Integer> getValidLevels() {
+        return validLevels;
     }
 }
