@@ -12,7 +12,7 @@ public class ProximityBasedStrategy implements ElevatorAssignmentStrategy {
 
         for (Elevator elevator :
                 elevators) {
-            int distance = Math.abs(pickUpRequest.pickUpFloor().number() - elevator.getCurrentFloor());
+            int distance = Math.abs(pickUpRequest.pickUpFloor().number() - elevator.getCurrentFloor().number());
             if (distance < minDistance) {
                 minDistance = distance;
                 closestElevator = elevator;
