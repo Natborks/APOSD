@@ -9,12 +9,14 @@ import com.google.auto.value.AutoValue;
 public abstract class Floor {
 
     /***
+     * Returns the integer representation of the given floor
      *
      * @return the integer representation of the floor class
      */
     public abstract int number();
 
     /***
+     * Creates a floor instance.
      *
      * @param number the floor number that represent a given floor
      * @return an instance of the floor class. Uses auto value ...

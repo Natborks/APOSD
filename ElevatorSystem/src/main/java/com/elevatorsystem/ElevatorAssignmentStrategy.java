@@ -3,7 +3,7 @@ package com.elevatorsystem;
 import java.util.List;
 
 /**
- * An abstract representation of the strategy for assigning elevators to pickup requests
+ * An abstract representation of the strategy for assigning elevators to pickup requests.
  */
 public interface ElevatorAssignmentStrategy {
 

@@ -9,7 +9,7 @@ import com.google.common.collect.ImmutableSet;
 public class FloorDomain {
 
     /**
-     * creates discrete domain represent the valid floor within the elevator system. Omits the invalid floor
+     * Creates discrete domain represent the valid floor within the elevator system. Omits the invalid floor.
      *
      * @param invalidLevels invalid elevator floor to be excluded from the domain of valid elevator floors
      * @return a discrete doman of floor without any invalid level
