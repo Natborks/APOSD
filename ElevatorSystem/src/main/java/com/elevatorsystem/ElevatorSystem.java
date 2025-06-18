@@ -5,8 +5,12 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 import static com.elevatorsystem.ElevatorDirection.*;
-public class ElevatorSystem {
 
+/***
+ * The elevator system or controller class to manage the operation of elevators
+ * this class is responsible taking elevator requests and servicing them.
+ */
+public class ElevatorSystem {
     public static final int BUFFER_SIZE =100;
     private final ElevatorAssignmentStrategy assignmentStrategy;
 
@@ -19,6 +23,14 @@ public class ElevatorSystem {
     private final Scanner scanner;
 
 
+    /***
+     * This is the constructor for the elevator system that initializes the number and types of
+     * elevators used in the building
+     *
+     * @param numElevators the number of elevators within this building
+     * @param strategy the strategy used for dispatching an elevator for a request
+     * @param buildingConfig the configuration of the building which can
+     */
     public ElevatorSystem(int numElevators,
                           ElevatorAssignmentStrategy strategy,
                           BuildingConfig buildingConfig
@@ -38,7 +50,7 @@ public class ElevatorSystem {
 
 
     public void pickUpRequest(PickUpRequest pickUpRequest) {
-        if (!buildingConfig.getValidLevels().contains(pickUpRequest.pickUpFloor().number())) {
+        if (!buildingConfig.getValidFloors().contains(pickUpRequest.pickUpFloor().number())) {
             //set floor to closest floor number
             return;
         }
@@ -51,6 +63,12 @@ public class ElevatorSystem {
     }
 
 
+    /**
+     * @precondition should run on a separate thread
+     *
+     * and continuously takes requests
+     * from the requests queue and dispatches them to available elevators
+     */
     public void serviceRequests() {
         while (true) {
             try {
@@ -72,6 +90,11 @@ public class ElevatorSystem {
     }
 
 
+    /***
+     * @precondition should run on a sperate thread
+     *
+     *  take creates a pickup request using direction and destinaton floor and adds it to the requests queue
+     */
     public void makeRequest() {
         while (true) {
             System.out.println("Going UP/DOWN? Enter 1 for UP and 0 for DOWN: ");
