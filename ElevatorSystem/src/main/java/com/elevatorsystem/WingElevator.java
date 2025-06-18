@@ -9,7 +9,7 @@ public class WingElevator implements Elevator{
     private final Floor currentFloor;
 
     /**
-     * The constructor for an elevator that exists within the wings of building
+     * The constructor for an elevator that exists within the wings of building.
      *
      * @param id the unique identifier for the elevator;
      */
@@ -20,7 +20,7 @@ public class WingElevator implements Elevator{
     }
 
     /**
-     * Moves the elevator to the intended destination of the pickup request and
+     * Moves the elevator to the intended destination of the pickup request.
      *
      * @param floor the intended destination of the pickup request
      */
@@ -30,7 +30,7 @@ public class WingElevator implements Elevator{
     }
 
     /***
-     * provides information on the current level of the elevator
+     * Provides information on the current level of the elevator.
      *
      * @return the current floor where the elevator is located
      */

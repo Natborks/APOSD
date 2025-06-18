@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * An implementation of the pickup strategy where available elevators are chosen basen their
- * closeness to the elevator request
+ * closeness to the elevator request.
  */
 public class ProximityBasedStrategy implements ElevatorAssignmentStrategy {
 

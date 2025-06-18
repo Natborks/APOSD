@@ -64,10 +64,9 @@ public class ElevatorSystem {
 
 
     /**
-     * @precondition should run on a separate thread
+     * This method ontinuously takes requests from the requests queue and dispatches them to available elevators.
      *
-     * and continuously takes requests
-     * from the requests queue and dispatches them to available elevators
+     * @precondition should run on a separate thread.
      */
     public void serviceRequests() {
         while (true) {
@@ -91,9 +90,11 @@ public class ElevatorSystem {
 
 
     /***
-     * @precondition should run on a sperate thread
+     * Thjis method continuously creates a pickup request using direction and destination
+     * floor and adds it to the requests queue
      *
-     *  take creates a pickup request using direction and destinaton floor and adds it to the requests queue
+     * @precondition should run on a sperate thread.
+     *
      */
     public void makeRequest() {
         while (true) {
